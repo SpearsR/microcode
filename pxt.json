@@ -39,7 +39,8 @@
         "fieldeditors.ts",
         "navigator.ts",
         "cursorscene.ts",
-        "options.ts"
+        "options.ts",
+        "share.ts"
     ],
     "testFiles": [],
     "targetVersions": {

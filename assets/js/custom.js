@@ -78,7 +78,6 @@ addSimMessageHandler("jacscript", async data => {
         const services = bus.services({
             serviceClass: jacdac.SRV_JACSCRIPT_MANAGER,
         })
-        console.log({ services })
         for (const service of services) {
             console.debug(`jacscript: deploying to ${service}`)
             try {
@@ -262,3 +261,29 @@ addSimMessageHandler("accessibility", data => {
     console.log(`live region: ${value}`)
     liveRegion.textContent = value
 })
+
+let latestProgram
+addSimMessageHandler("share", data => {
+    const msg = uint8ArrayToString(data)
+    const prog = JSON.stringify(msg)
+    latestProgram = btoa(prog)
+    console.debug(`share: ${prog} chars, ${latestProgram.length} b64`)
+    window.location.hash = latestProgram
+})
+
+function handleHash() { 
+    if (window.location.hash === latestProgram) return
+
+    try {
+        const prog = atob(window.location.hash.replace(/^#/, ''))
+        const json = JSON.parse(prog)
+        console.log(json)
+    }
+    catch(e) {
+        // invalid program
+        console.error(e)
+        window.location.hash = ""
+    }    
+}
+
+window.addEventListener("hashchange", handleHash)

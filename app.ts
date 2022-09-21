@@ -31,6 +31,7 @@ namespace microcode {
             }
             const s = JSON.stringify(saved)
             settings.writeString(slot, s)
+            sharing.setCurrentProgram(s)
         }
 
         public load(slot: string): ProgramDefn {
