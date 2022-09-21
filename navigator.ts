@@ -23,7 +23,7 @@ namespace microcode {
         addButtons: (btns: Button[]) => void
         move: (cursor: Cursor, dir: CursorDir) => Button
         getOverlapping: (cursor: Cursor) => Button[]
-        initialCursor: (cursor: Cursor) => Button
+        initialCursor: (row?: number, col?: number) => Button
     }
 
     export class RowNavigator implements INavigator {
@@ -92,7 +92,7 @@ namespace microcode {
         }
 
         public getOverlapping(cursor: Cursor): Button[] {
-            return [this.buttonGroups[this.row][this.col]]
+             return [this.buttonGroups[this.row][this.col]]
         }
 
         protected makeGood() {
@@ -102,10 +102,10 @@ namespace microcode {
                 this.col = this.buttonGroups[this.row].length - 1
         }
 
-        public initialCursor(cursor: Cursor) {
-            this.row = 0
-            this.col = 0
-            return this.buttonGroups[0][0]
+        public initialCursor(row: number = 0, col: number = 0) {
+            this.row = row
+            this.col = col
+            return this.buttonGroups[row][col]
         }
     }
 
@@ -227,7 +227,7 @@ namespace microcode {
             return btn
         }
 
-        public initialCursor(cursor: Cursor) {
+        public initialCursor(row: number = 0, col: number = 0) {
             this.row = 2 + (this.hasDelete() ? 1 : 0)
             this.col = 2
 

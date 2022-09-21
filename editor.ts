@@ -104,7 +104,7 @@ namespace microcode {
             )
             this.rebuildNavigator()
             if (initCursor) {
-                const btn = this.navigator.initialCursor(this.cursor)
+                const btn = this.navigator.initialCursor(1, 0)
                 if (btn) this.snapCursorTo(btn)
             }
         }
